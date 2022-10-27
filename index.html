@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  </head>
+<body>
+    <pre id="output"></pre>
+    <h1>Morse code encoder</h1>
+    <form id="encode" >
+      <input type="text" name="text" placeholder="Enter Your message here..">
+      <input type="submit" value="Submit">
+  </form>
+  <h2 id="idEnc">text</h2>
+
+  <form id="decode">
+    <input type="text" name="morseText"  placeholder="Enter Your morse message here..">
+    <input type="submit" value="Submit">
+</form>
+<h2 id="idDec">text</h2>
+
+  <script>
+   let mapEng = new Map([
+       ['a', ".-"],
+       ['b', "-..."],
+       ['c', "-.-."],
+       ['d', "-.."],
+       ['e', "."],
+       ['f', "..-."],
+       ['g', "--."],
+       ['h',  "...."],
+       ['i', ".."],
+       ['j', ".---"],
+       ['k', "-.-"],
+       ['l', ".-.."],
+       ['m', "--"],
+       ['n', "-."],
+       ['o', "---"],
+       ['p', ".--."],
+       ['q', "--.-"],
+       ['r', ".-."],
+       ['s', "..."],
+       ['t', "-"],
+       ['u', "..-"],
+       ['v', "...-"],
+       ['w', ".--"],
+       ['x', "-..-"],
+       ['y', "-.--"],
+       ['z', "--.."],
+       ['1', ".----"],
+       ['2', "..---"],
+       ['3', "...--"],
+       ['4', "....-"],
+       ['5', "-...."],
+       ['6', "--..."],
+       ['7', "--..."],
+       ['8', "---.."],
+       ['9', "----."],
+       ['0', "-----"],
+       [' ', " "]
+   ]);
+// JQuery function works when submit button is clicked
+   $('#encode').on('submit', function(ev) {
+          ev.preventDefault();
+          //get value of all input firlds, better change to id
+          var value = $('input[name=text]').val().toLowerCase(); 
+          //create an array of words withour spaces
+          let words = value.split(/\s+/)
+          var arrMorse = []
+          //get array of characters arr from words
+          var arr  = Array.from(value)
+          console.log(arr)
+          // each character arr[k] is a key in engMap and we searching for a value (morse dashes and dots) using the key
+          for(let k = 0; k < arr.length; k++) {
+            if(arr[k] != null) {
+              arrMorse[k] = mapEng.get(arr[k])
+            }
+          }
+            document.getElementById("idEnc").innerHTML = arrMorse.join(' ')
+        })
+        //Seems like JS doesn't have build in function to get key by value
+        //So I get a function here https://stackoverflow.com/questions/47135661/how-can-i-get-a-key-in-a-javascript-map-by-its-value
+        function getByValue(map, searchValue) {
+            for (let [key, value] of map.entries()) {
+              if (value === searchValue)
+                return key;
+            }
+        }
+
+        $('#decode').on('submit', function(ev) {
+          ev.preventDefault();
+          //get value of all input firlds, better change to id
+          var value = $('input[name=morseText]').val(); 
+          //create an array of morse letters 
+          let morseLetters = value.split(/\s+/)
+          let arrNormalLeters = []
+          console.log(morseLetters)
+          for(let j = 0; j < morseLetters.length; j++) {
+            arrNormalLeters[j] = getByValue(mapEng, morseLetters[j])
+          }
+          document.getElementById("idDec").innerHTML = arrNormalLeters.join(' ')
+
+        })
+
+</script>
+</body>
+</html>
