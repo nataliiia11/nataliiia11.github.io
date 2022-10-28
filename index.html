@@ -5,8 +5,28 @@
 
   </head>
 <body>
+ <style>
+   body {background-color: black;}
+   h1,h2,h3,h4 {color: white;
+               text-align: center }
+   p           {color: white;
+               text-align: center }
+   form        {color: white;
+               text-align: center }
+   label       {color: white; }
+   div         {text-align: center;}
+</style>
     <pre id="output"></pre>
     <h1>Morse code encoder</h1>
+    <div id='radios'>
+     <label for="html">English</label>
+      <input type="radio" id="english" value="eng">
+     <label for="html">German</label>
+      <input type="radio" id="german" value="ger">
+     <label for="html">Russian</label>
+      <input type="radio" id="russian" value="rus">
+    </div>
+    <br>
     <form id="encode" >
       <input type="text" name="text" placeholder="Enter Your message here..">
       <input type="submit" value="Submit">
@@ -59,6 +79,52 @@
        ['0', "-----"],
        [' ', " "]
    ]);
+
+   let mapGer = new Map([ 
+       ['a', ".-"],
+       ['b', "-..."],
+       ['c', "-.-."],
+       ['d', "-.."],
+       ['e', "."],
+       ['f', "..-."],
+       ['g', "--."],
+       ['h',  "...."],
+       ['i', ".."],
+       ['j', ".---"],
+       ['k', "-.-"],
+       ['l', ".-.."],
+       ['m', "--"],
+       ['n', "-."],
+       ['o', "---"],
+       ['p', ".--."],
+       ['q', "--.-"],
+       ['r', ".-."],
+       ['s', "..."],
+       ['t', "-"],
+       ['u', "..-"],
+       ['v', "...-"],
+       ['w', ".--"],
+       ['x', "-..-"],
+       ['y', "-.--"],
+       ['z', "--.."],
+       ['ü', "..--"],
+       ['ö', "---."],
+       ['ä', ".-.-"],
+       ['ß', "...--.."],
+       ['1', ".----"],
+       ['2', "..---"],
+       ['3', "...--"],
+       ['4', "....-"],
+       ['5', "-...."],
+       ['6', "--..."],
+       ['7', "--..."],
+       ['8', "---.."],
+       ['9', "----."],
+       ['0', "-----"],
+       [' ', " "]);
+   
+   let mapRus  new Map([]);
+   
 // JQuery function works when submit button is clicked
    $('#encode').on('submit', function(ev) {
           ev.preventDefault();
@@ -70,10 +136,17 @@
           //get array of characters arr from words
           var arr  = Array.from(value)
           console.log(arr)
+
+          //check which language was selected and access the maps accordningly
+          let langMap = new Map();
+          if(document.getElementById('english').checked){langMap = mapEng;}
+          else if(document.getElementById('german').checked){langMap = mapGer;}
+          else if(document.getElementById('russian').checked){langMap = mapRus;}
+
           // each character arr[k] is a key in engMap and we searching for a value (morse dashes and dots) using the key
           for(let k = 0; k < arr.length; k++) {
             if(arr[k] != null) {
-              arrMorse[k] = mapEng.get(arr[k])
+              arrMorse[k] = langMap.get(arr[k])
             }
           }
             document.getElementById("idEnc").innerHTML = arrMorse.join(' ')
@@ -96,7 +169,7 @@
           let arrNormalLeters = []
           console.log(morseLetters)
           for(let j = 0; j < morseLetters.length; j++) {
-            arrNormalLeters[j] = getByValue(mapEng, morseLetters[j])
+            arrNormalLeters[j] = getByValue(langMap, morseLetters[j])
           }
           document.getElementById("idDec").innerHTML = arrNormalLeters.join(' ')
 
