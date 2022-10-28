@@ -162,12 +162,11 @@
 
       //check which language was selected and access the maps accordningly
       let langMap = new Map();
-      if (document.getElementById('englishgerman').checked = true) {
-        langMap = mapEngGer;
-      } 
-      if (document.getElementById('russian').checked = true) {
+      langMap = mapEngGer;
+
+      if (document.getElementById('russian').checked === true) {
         langMap = mapRus;
-      }
+      } 
 
       // JQuery function works when submit button is clicked
       $('#encode').on('submit', function(ev) {
@@ -184,6 +183,9 @@
         if (arr.length == 0) {
           alert("Please Enter A Message!");
           throw "Please Enter A Message!";
+        } else if(arr.length === 0 && words.length != 0) {
+          alert("Please enter a valid message ");
+          throw "Please enter a valid message";
         }
 
         // each character arr[k] is a key in engMap and we searching for a value (morse dashes and dots) using the key
@@ -220,6 +222,8 @@
         if (arr.length === 0) {
           alert("Please Enter A Message!");
           throw "Please Enter A Message!";
+        } else if(arr.length === 0 && morseLetters.length != 0) {
+          alert("Please enter a morse code message with spaces between symbols!");
         }
         for (let j = 0; j < morseLetters.length; j++) {
           arrNormalLeters[j] = getByValue(langMap, morseLetters[j])
