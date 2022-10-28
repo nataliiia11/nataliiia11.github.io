@@ -1,180 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
+    <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
   </head>
-<body>
- <style>
-   body {background-color: black;}
-   h1,h2,h3,h4 {color: white;
-               text-align: center }
-   p           {color: white;
-               text-align: center }
-   form        {color: white;
-               text-align: center }
-   label       {color: white; }
-   div         {text-align: center;}
-</style>
+
+  <body>
+    <style>
+      body {
+        background-color: black;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: white;
+        text-align: center
+      }
+
+      p {
+        color: white;
+        text-align: center
+      }
+
+      form {
+        color: white;
+        text-align: center
+      }
+
+      label {
+        color: white;
+      }
+
+      div {
+        text-align: center;
+      }
+
+      input[type=text] {
+        width: 200px;
+      }
+
+    </style>
     <pre id="output"></pre>
-    <h1>Morse code encoder</h1>
-    <div id='radios'>
-     <label for="html">English</label>
-      <input type="radio" id="english" value="eng">
-     <label for="html">German</label>
-      <input type="radio" id="german" value="ger">
-     <label for="html">Russian</label>
-      <input type="radio" id="russian" value="rus">
+    <h1>Morse Code Encoder</h1>
+    <div>
+      <label for="html">English/German</label>
+      <input type="radio" name="langauge" id="englishgerman" value="engger">
+      <label for="html">Russian</label>
+      <input type="radio" name="langauge" id="russian" value="rus">
     </div>
     <br>
-    <form id="encode" >
+    <form id="encode">
       <input type="text" name="text" placeholder="Enter Your message here..">
-      <input type="submit" value="Submit">
-  </form>
-  <h2 id="idEnc">text</h2>
+      <input type="submit" value="ENCODE">
+    </form>
+    <h2 id="idEnc"> </h2>
 
-  <form id="decode">
-    <input type="text" name="morseText"  placeholder="Enter Your morse message here..">
-    <input type="submit" value="Submit">
-</form>
-<h2 id="idDec">text</h2>
+    <form id="decode">
+      <input type="text" name="morseText" placeholder="Enter Your morse message here..">
+      <input type="submit" value="DECODE">
+    </form>
+    <h2 id="idDec"></h2>
 
-  <script>
-   let mapEng = new Map([
-       ['a', ".-"],
-       ['b', "-..."],
-       ['c', "-.-."],
-       ['d', "-.."],
-       ['e', "."],
-       ['f', "..-."],
-       ['g', "--."],
-       ['h',  "...."],
-       ['i', ".."],
-       ['j', ".---"],
-       ['k', "-.-"],
-       ['l', ".-.."],
-       ['m', "--"],
-       ['n', "-."],
-       ['o', "---"],
-       ['p', ".--."],
-       ['q', "--.-"],
-       ['r', ".-."],
-       ['s', "..."],
-       ['t', "-"],
-       ['u', "..-"],
-       ['v', "...-"],
-       ['w', ".--"],
-       ['x', "-..-"],
-       ['y', "-.--"],
-       ['z', "--.."],
-       ['1', ".----"],
-       ['2', "..---"],
-       ['3', "...--"],
-       ['4', "....-"],
-       ['5', "-...."],
-       ['6', "--..."],
-       ['7', "--..."],
-       ['8', "---.."],
-       ['9', "----."],
-       ['0', "-----"],
-       [' ', " "]
-   ]);
+    <script>
+      let mapEngGer = new Map([
+        ['a', ".-"],
+        ['b', "-..."],
+        ['c', "-.-."],
+        ['d', "-.."],
+        ['e', "."],
+        ['f', "..-."],
+        ['g', "--."],
+        ['h', "...."],
+        ['i', ".."],
+        ['j', ".---"],
+        ['k', "-.-"],
+        ['l', ".-.."],
+        ['m', "--"],
+        ['n', "-."],
+        ['o', "---"],
+        ['p', ".--."],
+        ['q', "--.-"],
+        ['r', ".-."],
+        ['s', "..."],
+        ['t', "-"],
+        ['u', "..-"],
+        ['v', "...-"],
+        ['w', ".--"],
+        ['x', "-..-"],
+        ['y', "-.--"],
+        ['z', "--.."],
+        ['ü', "..--"],
+        ['ö', "---."],
+        ['ä', ".-.-"],
+        ['ß', "...--.."],
+        ['1', ".----"],
+        ['2', "..---"],
+        ['3', "...--"],
+        ['4', "....-"],
+        ['5', "-...."],
+        ['6', "--..."],
+        ['7', "--..."],
+        ['8', "---.."],
+        ['9', "----."],
+        ['0', "-----"],
+        [' ', " "]
+      ]);
 
-   let mapGer = new Map([ 
-       ['a', ".-"],
-       ['b', "-..."],
-       ['c', "-.-."],
-       ['d', "-.."],
-       ['e', "."],
-       ['f', "..-."],
-       ['g', "--."],
-       ['h',  "...."],
-       ['i', ".."],
-       ['j', ".---"],
-       ['k', "-.-"],
-       ['l', ".-.."],
-       ['m', "--"],
-       ['n', "-."],
-       ['o', "---"],
-       ['p', ".--."],
-       ['q', "--.-"],
-       ['r', ".-."],
-       ['s', "..."],
-       ['t', "-"],
-       ['u', "..-"],
-       ['v', "...-"],
-       ['w', ".--"],
-       ['x', "-..-"],
-       ['y', "-.--"],
-       ['z', "--.."],
-       ['ü', "..--"],
-       ['ö', "---."],
-       ['ä', ".-.-"],
-       ['ß', "...--.."],
-       ['1', ".----"],
-       ['2', "..---"],
-       ['3', "...--"],
-       ['4', "....-"],
-       ['5', "-...."],
-       ['6', "--..."],
-       ['7', "--..."],
-       ['8', "---.."],
-       ['9', "----."],
-       ['0', "-----"],
-       [' ', " "]);
-   
-   let mapRus  new Map([]);
-   
-// JQuery function works when submit button is clicked
-   $('#encode').on('submit', function(ev) {
-          ev.preventDefault();
-          //get value of all input firlds, better change to id
-          var value = $('input[name=text]').val().toLowerCase(); 
-          //create an array of words withour spaces
-          let words = value.split(/\s+/)
-          var arrMorse = []
-          //get array of characters arr from words
-          var arr  = Array.from(value)
-          console.log(arr)
 
-          //check which language was selected and access the maps accordningly
-          let langMap = new Map();
-          if(document.getElementById('english').checked){langMap = mapEng;}
-          else if(document.getElementById('german').checked){langMap = mapGer;}
-          else if(document.getElementById('russian').checked){langMap = mapRus;}
 
-          // each character arr[k] is a key in engMap and we searching for a value (morse dashes and dots) using the key
-          for(let k = 0; k < arr.length; k++) {
-            if(arr[k] != null) {
-              arrMorse[k] = langMap.get(arr[k])
-            }
-          }
-            document.getElementById("idEnc").innerHTML = arrMorse.join(' ')
-        })
-        //Seems like JS doesn't have build in function to get key by value
-        //So I get a function here https://stackoverflow.com/questions/47135661/how-can-i-get-a-key-in-a-javascript-map-by-its-value
-        function getByValue(map, searchValue) {
-            for (let [key, value] of map.entries()) {
-              if (value === searchValue)
-                return key;
-            }
+      let mapRus = new Map([]);
+
+
+      //check which language was selected and access the maps accordningly
+      let langMap = new Map();
+      if (document.getElementById('englishgerman').checked = true) {
+        langMap = mapEngGer;
+      } else if (document.getElementById('russian').checked = true) {
+        langMap = mapRus;
+      }
+
+      // JQuery function works when submit button is clicked
+      $('#encode').on('submit', function(ev) {
+        ev.preventDefault();
+        //get value of all input firlds, better change to id
+        var value = $('input[name=text]').val().toLowerCase();
+        //create an array of words withour spaces
+        let words = value.split(/\s+/)
+        var arrMorse = []
+        //get array of characters arr from words
+        var arr = Array.from(value)
+        console.log(arr)
+        //throw exception if no message is entered
+        if (arr.length == 0) {
+          alert("Please Enter A Message!");
+          throw "Please Enter A Message!";
         }
 
-        $('#decode').on('submit', function(ev) {
-          ev.preventDefault();
-          //get value of all input firlds, better change to id
-          var value = $('input[name=morseText]').val(); 
-          //create an array of morse letters 
-          let morseLetters = value.split(/\s+/)
-          let arrNormalLeters = []
-          console.log(morseLetters)
-          for(let j = 0; j < morseLetters.length; j++) {
-            arrNormalLeters[j] = getByValue(langMap, morseLetters[j])
+        // each character arr[k] is a key in engMap and we searching for a value (morse dashes and dots) using the key
+        for (let k = 0; k < arr.length; k++) {
+          if (arr[k] != null) {
+            arrMorse[k] = langMap.get(arr[k]);
           }
-          document.getElementById("idDec").innerHTML = arrNormalLeters.join(' ')
+        }
+        document.getElementById("idEnc").innerHTML = arrMorse.join(' ')
+      })
 
-        })
 
-</script>
-</body>
+      //Seems like JS doesn't have build in function to get key by value
+      //So I get a function here https://stackoverflow.com/questions/47135661/how-can-i-get-a-key-in-a-javascript-map-by-its-value
+      function getByValue(map, searchValue) {
+        for (let [key, value] of map.entries()) {
+          if (value === searchValue) {
+            return key;
+          }
+        }
+      }
+
+
+      $('#decode').on('submit', function(ev) {
+        ev.preventDefault();
+        //get value of all input firlds, better change to id
+        var value = $('input[name=morseText]').val();
+        //create an array of morse letters 
+        let morseLetters = value.split(/\s+/)
+        let arrNormalLeters = []
+        console.log(morseLetters)
+        for (let j = 0; j < morseLetters.length; j++) {
+          arrNormalLeters[j] = getByValue(langMap, morseLetters[j])
+        }
+        document.getElementById("idDec").innerHTML = arrNormalLeters.join(' ')
+
+      })
+
+    </script>
+  </body>
+
 </html>
