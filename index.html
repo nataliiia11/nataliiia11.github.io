@@ -169,6 +169,10 @@
         let morseLetters = value.split(/\s+/)
         let arrNormalLeters = []
         console.log(morseLetters)
+        if (arrNormalLeters.length === 0) {
+          alert("Please Enter A Message!");
+          throw "Please Enter A Message!";
+        }
         for (let j = 0; j < morseLetters.length; j++) {
           arrNormalLeters[j] = getByValue(langMap, morseLetters[j])
         }
