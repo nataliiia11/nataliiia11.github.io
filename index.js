@@ -1,4 +1,4 @@
- const mapEngGer = new Map([
+ let mapEngGer = new Map([
         ['a', ".-"],
         ['b', "-..."],
         ['c', "-.-."],
@@ -43,7 +43,7 @@
 
 
 
-const mapRus = new Map([
+let mapRus = new Map([
           ['а', ".-"],
           ['б', "-..."],
           ['в', ".--"],
@@ -96,9 +96,13 @@ const mapRus = new Map([
       let langMap = new Map();
       langMap = mapEngGer;
 
-      if (document.getElementById('russian').checked === true) {
+      if (document.getElementById('russian').checked == true) {
         langMap = mapRus;
-      } 
+      } else if (document.getElementById('englishgerman').checked == true) {
+        langMap = mapEngGer;
+      }  else {
+        alert("Something went wrong. Please refresh page and try again.")
+      }
 
       // JQuery function works when submit button is clicked
       $('#encode').on('submit', function(ev) {
@@ -114,24 +118,14 @@ const mapRus = new Map([
         if (arr.length == 0) {
           alert("Please Enter A Message!");
           throw "Please Enter A Message!";
-        } else if(arr.length === 0 && words.length != 0) {
-          alert("Please enter a valid message ");
-          throw "Please enter a valid message";
-        }
+        } 
 
         // each character arr[k] is a key in engMap and we searching for a value (morse dashes and dots) using the key
         for (let k = 0; k < arr.length; k++) {
           if (arr[k] != null) {
             arrMorse[k] = langMap.get(arr[k]);
-            if(arr[k] === " ") {
-              arrMorse[k] === " "
-            }
-            if(langMap.get(arr[k]) === undefined) {
-              arrMorse[k] = arr[k]
-            }
           } 
         }
-        console.log(arrMorse)
         
         document.getElementById("idEnc").innerHTML = arrMorse.join(' ')
       })
