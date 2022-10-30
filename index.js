@@ -98,12 +98,9 @@ let mapRus = new Map([
 
       if (document.getElementById('russian').checked == true) {
         langMap = mapRus;
-      } else if (document.getElementById('englishgerman').checked == true) {
-        langMap = mapEngGer;
-      }  else {
-        alert("Something went wrong. Please refresh page and try again.")
+        console.log("Russian language")
       }
-
+    
       // JQuery function works when submit button is clicked
       $('#encode').on('submit', function(ev) {
         ev.preventDefault();

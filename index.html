@@ -3,8 +3,10 @@
 
   <head>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<link rel="stylesheet" href="index.css">
+  <title>Morse decoder</title>
   </head>
 
   <body>
@@ -12,10 +14,14 @@
     <pre id="output"></pre>
     <h1>Morse Code Encoder</h1>
     <div>
-      <label for="html">English/German</label>
-      <input type="radio" name="langauge" id="englishgerman" value="engger">
-      <label for="html">Russian</label>
-      <input type="radio" name="langauge" id="russian" value="rus">
+      <form>
+        <input title = "1" type="radio" name="langauge" id="englishgerman" value="engger">
+        <label for="html">English/German</label>
+
+        <input title = "2" type="radio" name="langauge" id="russian" value="rus">
+        <label for="html">Russian</label>
+
+    </form>
     </div>
     <br>
     <h3>Please enter a text you want to encode in Morse</h3>
@@ -31,10 +37,7 @@
     </form>
     <h2 id="idDec"></h2>
 
-    <script>
-
-
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="index.js"></script>
 
   </body>
