@@ -1,0 +1,33 @@
+body {
+        background-color: black;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: white;
+        text-align: center
+      }
+
+      p {
+        color: white;
+        text-align: center
+      }
+
+      form {
+        color: white;
+        text-align: center
+      }
+
+      label {
+        color: white;
+      }
+
+      div {
+        text-align: center;
+      }
+
+      input[type=text] {
+        width: 200px;
+      }
